@@ -5,6 +5,7 @@ import { useAuth } from '../contexts/AuthContext'
 export function useDashboard() {
   const { user } = useAuth()
   const [monthlyData, setMonthlyData] = useState([])
+  const [totalCollected, setTotalCollected] = useState(0)
   const [loading, setLoading] = useState(true)
 
   const fetchMonthlyData = useCallback(async () => {
@@ -43,6 +44,18 @@ export function useDashboard() {
       })
       setMonthlyData(result)
     }
+
+    // Fetch all-time total collected
+    const { data: allPayments, error: allError } = await supabase
+      .from('fee_payments')
+      .select('amount')
+      .eq('teacher_id', user.id)
+
+    if (!allError && allPayments) {
+      const total = allPayments.reduce((sum, p) => sum + p.amount, 0)
+      setTotalCollected(total)
+    }
+
     setLoading(false)
   }, [user])
 
@@ -52,6 +65,7 @@ export function useDashboard() {
 
   return {
     monthlyData,
+    totalCollected,
     loading,
     refetch: fetchMonthlyData
   }

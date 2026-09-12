@@ -6,7 +6,7 @@ import { useStudents } from '../hooks/useStudents'
 import { useFees } from '../hooks/useFees'
 import { useDashboard } from '../hooks/useDashboard'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
-import { IndianRupee, TrendingUp, Clock, UserCheck, UserX } from 'lucide-react'
+import { IndianRupee, TrendingUp, Clock, UserCheck, UserX, Wallet } from 'lucide-react'
 
 const MONTH_NAMES = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -36,7 +36,7 @@ export function DashboardPage() {
 
   const { students } = useStudents()
   const { payments, getPaymentForStudent } = useFees(selectedMonth, selectedYear)
-  const { monthlyData } = useDashboard()
+  const { monthlyData, totalCollected } = useDashboard()
 
   const activeStudents = useMemo(() => students.filter(s => s.is_active), [students])
 
@@ -78,12 +78,24 @@ export function DashboardPage() {
 
   return (
     <Layout>
+      {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
           <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Dashboard</h2>
-          <p className="text-sm text-gray-400 dark:text-gray-500 dark:text-gray-400">{MONTH_NAMES[selectedMonth - 1]} {selectedYear} overview</p>
+          <p className="text-sm text-gray-400 dark:text-gray-400 mt-0.5">{MONTH_NAMES[selectedMonth - 1]} {selectedYear} overview</p>
         </div>
         <MonthSelector month={selectedMonth} year={selectedYear} onChange={(m, y) => { setSelectedMonth(m); setSelectedYear(y) }} />
+      </div>
+
+      {/* All-time total banner */}
+      <div className="mb-6 px-5 py-4 bg-blue-600 dark:bg-blue-700 rounded-xl flex items-center justify-between shadow-sm">
+        <div className="flex items-center gap-3">
+          <Wallet size={22} className="text-blue-100" />
+          <div>
+            <p className="text-xs font-medium text-blue-100 uppercase tracking-wider">Total Money Collected (All Time)</p>
+            <p className="text-2xl font-bold text-white tracking-tight">{formatCurrency(totalCollected)}</p>
+          </div>
+        </div>
       </div>
 
       {/* Summary Cards */}
