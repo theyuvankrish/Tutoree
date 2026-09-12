@@ -1,13 +1,27 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
-import { Users, CreditCard, BarChart3, LogOut, Menu, X } from 'lucide-react'
-import { useState } from 'react'
+import { Users, CreditCard, BarChart3, LogOut, Menu, X, Sun, Moon } from 'lucide-react'
+import { useState, useEffect } from 'react'
 import { TutoreeLogo } from './TutoreeLogoIcon'
 
 export function Layout({ children }) {
   const { user, signOut } = useAuth()
   const navigate = useNavigate()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [theme, setTheme] = useState('system');
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'system' ? 'dark' : prev === 'dark' ? 'light' : 'system'));
+  };
+  useEffect(() => {
+    const root = document.documentElement;
+    const isDarkSystem = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const enableDark = theme === 'dark' || (theme === 'system' && isDarkSystem);
+    if (enableDark) {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+  }, [theme]);
 
   const handleSignOut = async () => {
     await signOut()
@@ -23,14 +37,21 @@ export function Layout({ children }) {
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50/50">
+    <div className="min-h-screen bg-gray-50/50 dark:bg-gray-900">
       {/* Top Navigation */}
-      <header className="bg-white border-b border-gray-100 sticky top-0 z-40">
+      <header className="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-14">
             {/* Logo */}
             <div className="flex items-center gap-6">
               <TutoreeLogo iconSize={28} textSize="text-base" />
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+            aria-label="Toggle dark mode"
+          >
+            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
 
               {/* Desktop Nav */}
               <nav className="hidden md:flex items-center gap-1">
