@@ -1,18 +1,18 @@
 export function SummaryCard({ label, value, subtitle, color = 'blue', icon }) {
   const colorMap = {
-    blue: 'bg-blue-50 text-blue-700 border-blue-100',
-    green: 'bg-emerald-50 text-emerald-700 border-emerald-100',
-    amber: 'bg-amber-50 text-amber-700 border-amber-100',
-    red: 'bg-red-50 text-red-700 border-red-100',
-    gray: 'bg-gray-50 text-gray-700 border-gray-100'
+    blue: 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border-blue-100 dark:border-blue-900/50',
+    green: 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border-emerald-100 dark:border-emerald-900/50',
+    amber: 'bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 border-amber-100 dark:border-amber-900/50',
+    red: 'bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400 border-red-100 dark:border-red-900/50',
+    gray: 'bg-gray-50 dark:bg-gray-900 text-gray-700 dark:text-gray-300 border-gray-100 dark:border-gray-700'
   }
 
   const iconColorMap = {
-    blue: 'text-blue-400',
-    green: 'text-emerald-400',
-    amber: 'text-amber-400',
-    red: 'text-red-400',
-    gray: 'text-gray-400'
+    blue: 'text-blue-400 dark:text-blue-500',
+    green: 'text-emerald-400 dark:text-emerald-500',
+    amber: 'text-amber-400 dark:text-amber-500',
+    red: 'text-red-400 dark:text-red-500',
+    gray: 'text-gray-400 dark:text-gray-500'
   }
 
   return (

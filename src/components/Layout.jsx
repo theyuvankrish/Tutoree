@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
-import { Users, CreditCard, BarChart3, LogOut, Menu, X, Sun, Moon } from 'lucide-react'
+import { Users, CreditCard, BarChart3, LogOut, Menu, X, Sun, Moon, Monitor } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { TutoreeLogo } from './TutoreeLogoIcon'
 
@@ -8,11 +8,13 @@ export function Layout({ children }) {
   const { user, signOut } = useAuth()
   const navigate = useNavigate()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [theme, setTheme] = useState('system');
+  const [themeDropdownOpen, setThemeDropdownOpen] = useState(false);
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'system');
   const toggleTheme = () => {
     setTheme(prev => (prev === 'system' ? 'dark' : prev === 'dark' ? 'light' : 'system'));
   };
   useEffect(() => {
+    localStorage.setItem('theme', theme);
     const root = document.documentElement;
     const isDarkSystem = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const enableDark = theme === 'dark' || (theme === 'system' && isDarkSystem);
@@ -37,7 +39,7 @@ export function Layout({ children }) {
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50/50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50/50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       {/* Top Navigation */}
       <header className="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -45,13 +47,22 @@ export function Layout({ children }) {
             {/* Logo */}
             <div className="flex items-center gap-6">
               <TutoreeLogo iconSize={28} textSize="text-base" />
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-            aria-label="Toggle dark mode"
-          >
-            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
+          <div className="relative">
+                <button
+                  onClick={() => setThemeDropdownOpen(!themeDropdownOpen)}
+                  className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-500 dark:text-gray-400"
+                  aria-label="Toggle dark mode"
+                >
+                  {theme === 'dark' ? <Moon size={20} /> : theme === 'light' ? <Sun size={20} /> : <Monitor size={20} />}
+                </button>
+                {themeDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-lg shadow-lg py-1 z-50">
+                    <button onClick={() => { setTheme('light'); setThemeDropdownOpen(false); }} className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center gap-2"><Sun size={14} /> Light</button>
+                    <button onClick={() => { setTheme('dark'); setThemeDropdownOpen(false); }} className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center gap-2"><Moon size={14} /> Dark</button>
+                    <button onClick={() => { setTheme('system'); setThemeDropdownOpen(false); }} className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center gap-2"><Monitor size={14} /> System</button>
+                  </div>
+                )}
+              </div>
 
               {/* Desktop Nav */}
               <nav className="hidden md:flex items-center gap-1">
@@ -62,8 +73,8 @@ export function Layout({ children }) {
                     className={({ isActive }) =>
                       `flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                         isActive
-                          ? 'bg-blue-50 text-blue-700'
-                          : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+                          ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/50 dark:text-blue-400'
+                          : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800'
                       }`
                     }
                   >
@@ -76,12 +87,12 @@ export function Layout({ children }) {
 
             {/* Profile + Logout */}
             <div className="flex items-center gap-3">
-              <span className="hidden sm:block text-sm text-gray-500">
+              <span className="hidden sm:block text-sm text-gray-500 dark:text-gray-400">
                 {teacherName}
               </span>
               <button
                 onClick={handleSignOut}
-                className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm text-gray-500 hover:text-red-600 hover:bg-red-50 transition-colors"
+                className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
                 title="Logout"
               >
                 <LogOut size={15} />
@@ -91,7 +102,7 @@ export function Layout({ children }) {
               {/* Mobile menu button */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden p-1.5 rounded-lg text-gray-500 hover:bg-gray-100 transition-colors"
+                className="md:hidden p-1.5 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
                 {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
@@ -101,7 +112,7 @@ export function Layout({ children }) {
 
         {/* Mobile Nav */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-100 bg-white animate-fadeIn">
+          <div className="md:hidden border-t border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 animate-fadeIn">
             <div className="px-4 py-3 space-y-1">
               {navLinks.map(link => (
                 <NavLink
@@ -111,8 +122,8 @@ export function Layout({ children }) {
                   className={({ isActive }) =>
                     `flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                       isActive
-                        ? 'bg-blue-50 text-blue-700'
-                        : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+                        ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/50 dark:text-blue-400'
+                        : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700'
                     }`
                   }
                 >
@@ -122,7 +133,7 @@ export function Layout({ children }) {
               ))}
               <button
                 onClick={handleSignOut}
-                className="flex items-center gap-2 w-full px-3 py-2.5 rounded-lg text-sm text-red-600 hover:bg-red-50 transition-colors"
+                className="flex items-center gap-2 w-full px-3 py-2.5 rounded-lg text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
               >
                 <LogOut size={15} />
                 Logout

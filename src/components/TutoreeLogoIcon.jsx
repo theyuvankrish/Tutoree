@@ -40,7 +40,7 @@ export function TutoreeLogo({ iconSize = 28, textSize = 'text-base', className =
   return (
     <div className={`flex items-center gap-2 ${className}`}>
       <TutoreeLogoIcon size={iconSize} />
-      <span className={`font-bold text-gray-900 tracking-tight ${textSize}`}>
+      <span className={`font-bold text-gray-900 dark:text-white tracking-tight ${textSize}`}>
         Tutoree
       </span>
     </div>

@@ -61,20 +61,20 @@ export function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center mb-4">
             <TutoreeLogoIcon size={48} />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Tutoree</h1>
-          <p className="text-sm text-gray-400 mt-1">Manage your students &amp; fees</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 tracking-tight">Tutoree</h1>
+          <p className="text-sm text-gray-400 dark:text-gray-500 dark:text-gray-400 mt-1">Manage your students &amp; fees</p>
         </div>
 
         {/* Form Card */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <h2 className="text-base font-semibold text-gray-900 mb-5">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+          <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-5">
             {isReset ? 'Reset Password' : isSignUp ? 'Create Account' : 'Welcome back'}
           </h2>
 
@@ -84,7 +84,7 @@ export function LoginPage() {
             </div>
           )}
           {message && (
-            <div className="mb-4 px-3 py-2 bg-emerald-50 border border-emerald-200 rounded-lg text-sm text-emerald-600">
+            <div className="mb-4 px-3 py-2 bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 rounded-lg text-sm text-emerald-600">
               {message}
             </div>
           )}
@@ -92,26 +92,26 @@ export function LoginPage() {
           <form onSubmit={handleSubmit} className="space-y-3.5">
             {isSignUp && !isReset && (
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1.5">Your Name</label>
+                <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">Your Name</label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Rajesh Kumar"
-                  className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-colors placeholder:text-gray-300"
+                  className="w-full px-3 py-2.5 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-colors placeholder:text-gray-400 dark:placeholder:text-gray-500"
                   autoFocus
                 />
               </div>
             )}
 
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1.5">Email</label>
+              <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">Email</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-colors placeholder:text-gray-300"
+                className="w-full px-3 py-2.5 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-colors placeholder:text-gray-400 dark:placeholder:text-gray-500"
                 required
                 autoFocus={!isSignUp}
               />
@@ -119,21 +119,21 @@ export function LoginPage() {
 
             {!isReset && (
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1.5">Password</label>
+                <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">Password</label>
                 <div className="relative">
                   <input
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
-                    className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-colors placeholder:text-gray-300 pr-10"
+                    className="w-full px-3 py-2.5 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-colors placeholder:text-gray-400 dark:placeholder:text-gray-500 pr-10"
                     required
                     minLength={6}
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 dark:text-gray-400 hover:text-gray-600 transition-colors"
                   >
                     {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                   </button>
@@ -157,11 +157,11 @@ export function LoginPage() {
             </button>
           </form>
 
-          <div className="mt-5 pt-4 border-t border-gray-100 text-center space-y-2">
+          <div className="mt-5 pt-4 border-t border-gray-100 dark:border-gray-700 text-center space-y-2">
             {!isReset && (
               <button
                 onClick={() => { setIsSignUp(!isSignUp); setError(''); setMessage('') }}
-                className="text-sm text-blue-600 hover:text-blue-700 transition-colors"
+                className="text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 transition-colors"
               >
                 {isSignUp ? 'Already have an account? Log in' : "Don't have an account? Sign up"}
               </button>
@@ -169,7 +169,7 @@ export function LoginPage() {
             <br />
             <button
               onClick={() => { setIsReset(!isReset); setError(''); setMessage('') }}
-              className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
+              className="text-xs text-gray-400 dark:text-gray-500 dark:text-gray-400 hover:text-gray-600 transition-colors"
             >
               {isReset ? '← Back to login' : 'Forgot password?'}
             </button>

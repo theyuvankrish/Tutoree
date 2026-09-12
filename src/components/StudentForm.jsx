@@ -46,14 +46,14 @@ export function StudentForm({ student, onSubmit, onClose }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fadeIn">
       <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 animate-slideUp">
+      <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-6 animate-slideUp">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
             {student ? 'Edit Student' : 'Add Student'}
           </h2>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
+            className="p-1.5 rounded-lg text-gray-400 dark:text-gray-500 dark:text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:bg-gray-700 transition-colors"
           >
             <X size={18} />
           </button>
@@ -67,54 +67,54 @@ export function StudentForm({ student, onSubmit, onClose }) {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Student Name *</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Student Name *</label>
             <input
               type="text"
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
               placeholder="Enter student name"
-              className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-colors placeholder:text-gray-300"
+              className="w-full px-3 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-colors placeholder:text-gray-300 dark:placeholder:text-gray-600"
               autoFocus
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Phone Number</label>
             <input
               type="tel"
               value={form.phone}
               onChange={(e) => setForm({ ...form, phone: e.target.value })}
               placeholder="e.g. 9876543210"
-              className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-colors placeholder:text-gray-300"
+              className="w-full px-3 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-colors placeholder:text-gray-300 dark:placeholder:text-gray-600"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Class</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Class</label>
               <input
                 type="text"
                 value={form.class}
                 onChange={(e) => setForm({ ...form, class: e.target.value })}
                 placeholder="e.g. 10th"
-                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-colors placeholder:text-gray-300"
+                className="w-full px-3 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-colors placeholder:text-gray-300 dark:placeholder:text-gray-600"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Monthly Fee (₹) *</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Monthly Fee (₹) *</label>
               <input
                 type="number"
                 value={form.monthly_fee}
                 onChange={(e) => setForm({ ...form, monthly_fee: e.target.value })}
                 placeholder="e.g. 1500"
                 min="0"
-                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-colors placeholder:text-gray-300"
+                className="w-full px-3 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-colors placeholder:text-gray-300 dark:placeholder:text-gray-600"
               />
             </div>
           </div>
 
           <div className="flex items-center justify-between py-2">
-            <label className="text-sm font-medium text-gray-700">Status</label>
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Status</label>
             <button
               type="button"
               onClick={() => setForm({ ...form, is_active: !form.is_active })}
@@ -123,13 +123,13 @@ export function StudentForm({ student, onSubmit, onClose }) {
               }`}
             >
               <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-transform duration-200 ${
+                className={`inline-block h-4 w-4 transform rounded-full bg-white dark:bg-gray-800 shadow-sm transition-transform duration-200 ${
                   form.is_active ? 'translate-x-6' : 'translate-x-1'
                 }`}
               />
               <span className="sr-only">{form.is_active ? 'Active' : 'Inactive'}</span>
             </button>
-            <span className={`text-xs font-medium ${form.is_active ? 'text-emerald-600' : 'text-gray-400'}`}>
+            <span className={`text-xs font-medium ${form.is_active ? 'text-emerald-600' : 'text-gray-400 dark:text-gray-500 dark:text-gray-400'}`}>
               {form.is_active ? '🟢 Active' : '⚪ Inactive'}
             </span>
           </div>
@@ -138,7 +138,7 @@ export function StudentForm({ student, onSubmit, onClose }) {
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2.5 border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+              className="flex-1 px-4 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 dark:bg-gray-900 transition-colors"
             >
               Cancel
             </button>

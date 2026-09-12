@@ -89,8 +89,8 @@ export function StudentsPage() {
       {/* Header row */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h2 className="text-lg font-semibold text-gray-900">Students</h2>
-          <p className="text-sm text-gray-400">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Students</h2>
+          <p className="text-sm text-gray-400 dark:text-gray-500 dark:text-gray-400">
             {students.filter(s => s.is_active).length} active · {students.filter(s => !s.is_active).length} inactive
           </p>
         </div>
@@ -114,7 +114,7 @@ export function StudentsPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search students by name, phone, or class..."
-          className="w-full pl-9 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-colors placeholder:text-gray-300"
+          className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-colors placeholder:text-gray-400 dark:placeholder:text-gray-500"
         />
       </div>
 
@@ -125,7 +125,7 @@ export function StudentsPage() {
         </div>
       ) : filteredStudents.length === 0 ? (
         <div className="text-center py-20">
-          <p className="text-gray-400 text-sm">
+          <p className="text-gray-400 dark:text-gray-500 dark:text-gray-400 text-sm">
             {students.length === 0
               ? 'No students yet. Click "+ Add Student" to get started.'
               : 'No students match your search.'
@@ -135,18 +135,18 @@ export function StudentsPage() {
       ) : (
         <div className="space-y-6">
           {studentsByClass.map(({ cls, students: groupStudents }) => (
-            <div key={cls} className="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm">
+            <div key={cls} className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 overflow-hidden shadow-sm">
               {/* Class Header */}
-              <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-gray-50/60">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 dark:border-gray-700 bg-gray-50/60 dark:bg-gray-900/50">
                 <div className="flex items-center gap-2.5">
-                  <span className="text-xs font-semibold text-blue-700 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-md uppercase tracking-wide">
+                  <span className="text-xs font-semibold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 border border-blue-100 px-2 py-0.5 rounded-md uppercase tracking-wide">
                     Class {cls}
                   </span>
-                  <span className="text-xs text-gray-400">
+                  <span className="text-xs text-gray-400 dark:text-gray-500 dark:text-gray-400">
                     {groupStudents.length} student{groupStudents.length !== 1 ? 's' : ''}
                   </span>
                 </div>
-                <span className="text-xs text-gray-400">
+                <span className="text-xs text-gray-400 dark:text-gray-500 dark:text-gray-400">
                   {groupStudents.filter(s => s.is_active).length} active
                 </span>
               </div>
@@ -155,18 +155,18 @@ export function StudentsPage() {
               <div className="hidden md:block overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-gray-100">
-                      <th className="text-left text-xs font-medium text-gray-400 uppercase tracking-wider px-4 py-3">Student</th>
-                      <th className="text-left text-xs font-medium text-gray-400 uppercase tracking-wider px-4 py-3">Phone</th>
-                      <th className="text-right text-xs font-medium text-gray-400 uppercase tracking-wider px-4 py-3">Monthly Fee</th>
-                      <th className="text-center text-xs font-medium text-gray-400 uppercase tracking-wider px-4 py-3">Status</th>
-                      <th className="text-center text-xs font-medium text-gray-400 uppercase tracking-wider px-4 py-3">
+                    <tr className="border-b border-gray-100 dark:border-gray-700">
+                      <th className="text-left text-xs font-medium text-gray-400 dark:text-gray-500 dark:text-gray-400 uppercase tracking-wider px-4 py-3">Student</th>
+                      <th className="text-left text-xs font-medium text-gray-400 dark:text-gray-500 dark:text-gray-400 uppercase tracking-wider px-4 py-3">Phone</th>
+                      <th className="text-right text-xs font-medium text-gray-400 dark:text-gray-500 dark:text-gray-400 uppercase tracking-wider px-4 py-3">Monthly Fee</th>
+                      <th className="text-center text-xs font-medium text-gray-400 dark:text-gray-500 dark:text-gray-400 uppercase tracking-wider px-4 py-3">Status</th>
+                      <th className="text-center text-xs font-medium text-gray-400 dark:text-gray-500 dark:text-gray-400 uppercase tracking-wider px-4 py-3">
                         {MONTH_NAMES_SHORT[selectedMonth - 1]} {selectedYear}
                       </th>
-                      <th className="text-right text-xs font-medium text-gray-400 uppercase tracking-wider px-4 py-3">Actions</th>
+                      <th className="text-right text-xs font-medium text-gray-400 dark:text-gray-500 dark:text-gray-400 uppercase tracking-wider px-4 py-3">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-50">
+                  <tbody className="divide-y divide-gray-50 dark:divide-gray-700">
                     {groupStudents.map(student => {
                       const payment = getPaymentForStudent(student.id)
                       const isPaid = !!payment
@@ -175,24 +175,24 @@ export function StudentsPage() {
                           key={student.id}
                           className={`group transition-colors ${
                             student.is_active
-                              ? 'hover:bg-gray-50/50'
-                              : 'bg-gray-50/30 opacity-60'
+                              ? 'hover:bg-gray-50/50 dark:hover:bg-gray-700/50'
+                              : 'bg-gray-50/30 dark:bg-gray-800/50 opacity-60'
                           }`}
                         >
                           <td className="px-4 py-3">
-                            <span className={`text-sm font-medium ${student.is_active ? 'text-gray-900' : 'text-gray-400'}`}>
+                            <span className={`text-sm font-medium ${student.is_active ? 'text-gray-900 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500 dark:text-gray-400'}`}>
                               {student.name}
                             </span>
                           </td>
-                          <td className="px-4 py-3 text-sm text-gray-500">{student.phone || '—'}</td>
-                          <td className="px-4 py-3 text-sm text-gray-700 text-right font-medium">{formatCurrency(student.monthly_fee)}</td>
+                          <td className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">{student.phone || '—'}</td>
+                          <td className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300 text-right font-medium">{formatCurrency(student.monthly_fee)}</td>
                           <td className="px-4 py-3 text-center">
                             <button
                               onClick={() => toggleActive(student.id, !student.is_active)}
                               className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium transition-colors ${
                                 student.is_active
-                                  ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
-                                  : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                                  ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-100'
+                                  : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'
                               }`}
                             >
                               <span className={`w-1.5 h-1.5 rounded-full ${student.is_active ? 'bg-emerald-500' : 'bg-gray-400'}`} />
@@ -205,8 +205,8 @@ export function StudentsPage() {
                                 onClick={() => handlePaymentClick(student)}
                                 className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                                   isPaid
-                                    ? 'bg-emerald-50 text-emerald-700 hover:bg-red-50 hover:text-red-600'
-                                    : 'bg-amber-50 text-amber-700 hover:bg-emerald-50 hover:text-emerald-700'
+                                    ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 hover:bg-red-50 dark:hover:bg-red-900/30 hover:text-red-600 dark:hover:text-red-400'
+                                    : 'bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 hover:text-emerald-700 dark:hover:text-emerald-400'
                                 }`}
                                 title={isPaid ? `₹${payment.amount} — Paid on ${new Date(payment.paid_on).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}. Click to undo.` : 'Click to mark as paid'}
                               >
@@ -230,14 +230,14 @@ export function StudentsPage() {
                             <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                               <button
                                 onClick={() => setEditingStudent(student)}
-                                className="p-1.5 rounded-lg text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                                className="p-1.5 rounded-lg text-gray-400 dark:text-gray-500 dark:text-gray-400 hover:text-blue-600 hover:bg-blue-50 dark:bg-blue-900/30 transition-colors"
                                 title="Edit"
                               >
                                 <Edit2 size={14} />
                               </button>
                               <button
                                 onClick={() => setDeleteConfirm(student)}
-                                className="p-1.5 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                                className="p-1.5 rounded-lg text-gray-400 dark:text-gray-500 dark:text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"
                                 title="Delete"
                               >
                                 <Trash2 size={14} />
@@ -252,7 +252,7 @@ export function StudentsPage() {
               </div>
 
               {/* Mobile Cards */}
-              <div className="md:hidden divide-y divide-gray-100">
+              <div className="md:hidden divide-y divide-gray-100 dark:divide-gray-700">
                 {groupStudents.map(student => {
                   const payment = getPaymentForStudent(student.id)
                   const isPaid = !!payment
@@ -263,33 +263,33 @@ export function StudentsPage() {
                     >
                       <div className="flex items-start justify-between mb-2">
                         <div>
-                          <p className="font-medium text-sm text-gray-900">{student.name}</p>
-                          <p className="text-xs text-gray-400">{student.phone ? `${student.phone}` : ''}</p>
+                          <p className="font-medium text-sm text-gray-900 dark:text-gray-100">{student.name}</p>
+                          <p className="text-xs text-gray-400 dark:text-gray-500 dark:text-gray-400">{student.phone ? `${student.phone}` : ''}</p>
                         </div>
                         <div className="flex items-center gap-1">
                           <button
                             onClick={() => setEditingStudent(student)}
-                            className="p-1.5 rounded-lg text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                            className="p-1.5 rounded-lg text-gray-400 dark:text-gray-500 dark:text-gray-400 hover:text-blue-600 hover:bg-blue-50 dark:bg-blue-900/30 transition-colors"
                           >
                             <Edit2 size={14} />
                           </button>
                           <button
                             onClick={() => setDeleteConfirm(student)}
-                            className="p-1.5 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                            className="p-1.5 rounded-lg text-gray-400 dark:text-gray-500 dark:text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"
                           >
                             <Trash2 size={14} />
                           </button>
                         </div>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-gray-700">{formatCurrency(student.monthly_fee)}</span>
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{formatCurrency(student.monthly_fee)}</span>
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => toggleActive(student.id, !student.is_active)}
                             className={`text-xs px-2 py-0.5 rounded-full ${
                               student.is_active
-                                ? 'bg-emerald-50 text-emerald-700'
-                                : 'bg-gray-100 text-gray-500'
+                                ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400'
+                                : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
                             }`}
                           >
                             {student.is_active ? '🟢 Active' : '⚪ Inactive'}
@@ -299,8 +299,8 @@ export function StudentsPage() {
                               onClick={() => handlePaymentClick(student)}
                               className={`text-xs px-2.5 py-1 rounded-lg font-medium ${
                                 isPaid
-                                  ? 'bg-emerald-50 text-emerald-700'
-                                  : 'bg-amber-50 text-amber-700'
+                                  ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400'
+                                  : 'bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400'
                               }`}
                             >
                               {isPaid ? `✓ ${formatCurrency(payment.amount)}` : '○ Unpaid'}
@@ -350,15 +350,15 @@ export function StudentsPage() {
       {deleteConfirm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fadeIn">
           <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={() => setDeleteConfirm(null)} />
-          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-xs p-6 animate-slideUp">
-            <h3 className="text-base font-semibold text-gray-900 mb-2">Delete Student</h3>
-            <p className="text-sm text-gray-500 mb-5">
+          <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-xs p-6 animate-slideUp">
+            <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2">Delete Student</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">
               Are you sure you want to delete <strong>{deleteConfirm.name}</strong>? This will also remove all their fee records.
             </p>
             <div className="flex gap-3">
               <button
                 onClick={() => setDeleteConfirm(null)}
-                className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+                className="flex-1 px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 dark:bg-gray-900 transition-colors"
               >
                 Cancel
               </button>

@@ -20,8 +20,8 @@ function formatCurrency(amount) {
 function CustomTooltip({ active, payload, label }) {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white rounded-lg shadow-lg border border-gray-100 px-3 py-2">
-        <p className="text-xs font-medium text-gray-900">{label}</p>
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-100 dark:border-gray-700 px-3 py-2">
+        <p className="text-xs font-medium text-gray-900 dark:text-gray-100">{label}</p>
         <p className="text-sm font-semibold text-blue-600">{formatCurrency(payload[0].value)}</p>
       </div>
     )
@@ -80,8 +80,8 @@ export function DashboardPage() {
     <Layout>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h2 className="text-lg font-semibold text-gray-900">Dashboard</h2>
-          <p className="text-sm text-gray-400">{MONTH_NAMES[selectedMonth - 1]} {selectedYear} overview</p>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Dashboard</h2>
+          <p className="text-sm text-gray-400 dark:text-gray-500 dark:text-gray-400">{MONTH_NAMES[selectedMonth - 1]} {selectedYear} overview</p>
         </div>
         <MonthSelector month={selectedMonth} year={selectedYear} onChange={(m, y) => { setSelectedMonth(m); setSelectedYear(y) }} />
       </div>
@@ -124,8 +124,8 @@ export function DashboardPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Monthly Collection Chart */}
-        <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-700 mb-4">Monthly Collection</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-5 shadow-sm">
+          <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">Monthly Collection</h3>
           {monthlyData.length > 0 ? (
             <ResponsiveContainer width="100%" height={260}>
               <BarChart data={monthlyData} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
@@ -148,40 +148,40 @@ export function DashboardPage() {
             </ResponsiveContainer>
           ) : (
             <div className="flex items-center justify-center h-[260px]">
-              <p className="text-sm text-gray-400">No collection data yet</p>
+              <p className="text-sm text-gray-400 dark:text-gray-500 dark:text-gray-400">No collection data yet</p>
             </div>
           )}
         </div>
 
         {/* Student-wise Collection */}
-        <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-gray-700 mb-4">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-5 shadow-sm">
+          <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">
             Student Collection — {MONTH_NAMES[selectedMonth - 1]}
           </h3>
           {studentPayments.length === 0 ? (
             <div className="flex items-center justify-center h-[260px]">
-              <p className="text-sm text-gray-400">No active students</p>
+              <p className="text-sm text-gray-400 dark:text-gray-500 dark:text-gray-400">No active students</p>
             </div>
           ) : (
             <div className="max-h-[300px] overflow-y-auto">
               <table className="w-full">
-                <thead className="sticky top-0 bg-white">
-                  <tr className="border-b border-gray-100">
-                    <th className="text-left text-xs font-medium text-gray-400 uppercase tracking-wider px-3 py-2">Student</th>
-                    <th className="text-right text-xs font-medium text-gray-400 uppercase tracking-wider px-3 py-2">Fee</th>
-                    <th className="text-right text-xs font-medium text-gray-400 uppercase tracking-wider px-3 py-2">Paid</th>
+                <thead className="sticky top-0 bg-white dark:bg-gray-800">
+                  <tr className="border-b border-gray-100 dark:border-gray-700">
+                    <th className="text-left text-xs font-medium text-gray-400 dark:text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3 py-2">Student</th>
+                    <th className="text-right text-xs font-medium text-gray-400 dark:text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3 py-2">Fee</th>
+                    <th className="text-right text-xs font-medium text-gray-400 dark:text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3 py-2">Paid</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-50">
+                <tbody className="divide-y divide-gray-50 dark:divide-gray-700">
                   {studentPayments.map(s => (
-                    <tr key={s.id} className="hover:bg-gray-50/50 transition-colors">
-                      <td className="px-3 py-2 text-sm text-gray-900">
+                    <tr key={s.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-700/50 transition-colors">
+                      <td className="px-3 py-2 text-sm text-gray-900 dark:text-gray-100">
                         <div className="flex items-center gap-2">
                           <span className={`w-1.5 h-1.5 rounded-full ${s.isPaid ? 'bg-emerald-500' : 'bg-amber-400'}`} />
                           {s.name}
                         </div>
                       </td>
-                      <td className="px-3 py-2 text-sm text-gray-500 text-right">{formatCurrency(s.monthly_fee)}</td>
+                      <td className="px-3 py-2 text-sm text-gray-500 dark:text-gray-400 text-right">{formatCurrency(s.monthly_fee)}</td>
                       <td className={`px-3 py-2 text-sm font-medium text-right ${s.isPaid ? 'text-emerald-600' : 'text-gray-300'}`}>
                         {s.isPaid ? formatCurrency(s.paid) : '—'}
                       </td>
